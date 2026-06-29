@@ -3,336 +3,543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gren Life Blog</title>
+    <title>i8023chu's Blog</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Bento Home Theme - Responsive Mode */
+        .bento-home { 
+            --primary: #6366f1; 
+            --accent: #f43f5e; 
+            --bg: #ffffff; 
+            --card-bg: rgba(0, 0, 0, 0.03); 
+            --card-border: rgba(0, 0, 0, 0.06); 
+            --text-main: #0f172a; 
+            --text-dim: #64748b; 
+            font-family: "Outfit", sans-serif; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            transition: background 0.5s ease; 
+        }
+
+        .dark .bento-home { 
+            --bg: #030712; 
+            --card-bg: rgba(255, 255, 255, 0.04); 
+            --card-border: rgba(255, 255, 255, 0.1); 
+            --text-main: #f8fafc; 
+            --text-dim: #94a3b8; 
+        }
+
+        .bento-home * { box-sizing: border-box; }
+        .bento-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+        /* Header */
+        .bento-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 40px; 
+        }
+        .bento-header .brand { 
+            font-size: 20px; 
+            font-weight: 800; 
+            letter-spacing: -0.5px; 
+        }
+        .bento-header .brand span { color: var(--primary); }
+        .bento-nav { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            font-size: 14px; 
+            color: var(--text-dim); 
+            font-weight: 500; 
+        }
+
+        /* Bento Grid */
+        .bento-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            grid-auto-rows: minmax(160px, auto); 
+            gap: 20px; 
+            margin-bottom: 60px; 
         }
         
-        :root {
-            /* Four Greens Color Palette */
-            --qingqing: #438059;        /* 靑青 - Bright Green */
-            --luqing: #385F41;          /* 绿青 - Dark Green */
-            --qingbian: #7A9D8F;        /* 青練 - Celadon */
-            --qingqi: #C1D6C9;          /* 青齑 - Light Green */
-            
-            --color-text: var(--luqing);
-            --color-background: var(--qingqi);
-            --color-primary: var(--qingqing);
-            --color-secondary: var(--qingbian);
-            --radius: 12px;
+        /* Calendar & Clock Card */
+        .calendar-clock-card { 
+            grid-column: span 1; 
+            grid-row: span 2; 
+            display: flex; 
+            flex-direction: column; 
+            text-align: center; 
+            padding: 24px;
+        }
+        .calendar-clock-card .card-label {
+            margin-bottom: 16px;
+        }
+        .calendar-clock-card .month-year {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+        .calendar-clock-card .time { 
+            font-size: 32px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            margin-bottom: 8px; 
+        }
+        .calendar-clock-card .weekday { 
+            font-size: 14px; 
+            color: var(--text-dim); 
         }
         
-        body {
-            font-family: 'PingFang SC', 'Hiragino Sans', 'Helvetica Neue', sans-serif;
-            background-color: var(--color-background);
-            color: var(--color-text);
-            line-height: 1.7;
-            font-size: 16px;
+        /* Calendar Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 8px;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 60px;
-        }
-        
-        /* Navigation */
-        .navbar {
-            background: var(--luqing);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            color: var(--qingqi);
-            font-size: 24px;
+        .calendar-weekday {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-align: center;
+            padding: 6px 0;
             font-weight: 600;
         }
-        
-        .nav {
-            display: flex;
-            gap: 32px;
-        }
-        
-        .nav a {
-            color: var(--qingqi);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        
-        .nav a:hover {
-            opacity: 0.8;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(67, 128, 89, 0.8), rgba(67, 128, 89, 0.8)), 
-                        url('https://source.unsplash.com/random/1920x1000/?nature') center/cover;
-            height: 70vh;
+        .calendar-day {
+            aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: var(--qingqi);
-        }
-        
-        .hero-content h1 {
-            font-size: 56px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .hero-content p {
-            font-size: 20px;
-            max-width: 600px;
-            margin: 0 auto 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 16px 40px;
-            background: var(--qingqing);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 32px;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background: var(--luqing);
-            transform: translateY(-2px);
-        }
-        
-        /* Articles */
-        .articles {
-            padding: 100px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 600;
-            margin-bottom: 60px;
-            color: var(--luqing);
-        }
-        
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 32px;
-        }
-        
-        .article-card {
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(67, 128, 89, 0.15);
-            transition: transform 0.3s;
-        }
-        
-        .article-card:hover {
-            transform: translateY(-8px);
-        }
-        
-        .article-header {
-            background: var(--qingbian);
-            padding: 20px;
-            color: var(--luqing);
-        }
-        
-        .article-category {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .article-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-        
-        .article-content {
-            padding: 24px;
-        }
-        
-        .article-excerpt {
-            color: var(--luqing);
-            margin-bottom: 16px;
-        }
-        
-        .article-meta {
             font-size: 13px;
-            color: var(--qingbian);
-        }
-        
-        /* Search Section */
-        .search-section {
-            padding: 80px 0;
-            background: var(--luqing);
-            color: var(--qingqi);
-        }
-        
-        .search-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .search-title {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-        
-        .search-form {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 16px 24px;
-            border: 1px solid var(--qingbian);
-            border-radius: 24px;
-            font-size: 16px;
-            outline: none;
-        }
-        
-        .search-button {
-            padding: 16px 32px;
-            background: var(--qingqing);
-            color: white;
-            border: none;
-            border-radius: 24px;
-            font-size: 14px;
-            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+        }
+        .calendar-day.empty {
+            color: var(--text-dim);
+            opacity: 0.4;
+            cursor: default;
+        }
+        .calendar-day.today {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        .calendar-day:hover:not(.empty):not(.today) {
+            background: var(--card-border);
         }
         
-        .search-button:hover {
-            background: var(--luqing);
+        /* Announcement Card */
+        .announce-card { 
+            grid-column: span 2; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .announce-card .announce-item { 
+            padding: 16px 0; 
+            border-bottom: 1px solid var(--card-border); 
+        }
+        .announce-card .announce-item:last-child { border-bottom: none; }
+        .announce-card .announce-title { 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: var(--text-main); 
+            margin-bottom: 6px; 
+        }
+        .announce-card .announce-meta { 
+            font-size: 11px; 
+            color: var(--text-dim); 
         }
         
+        .bento-card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--card-border); 
+            border-radius: 32px; 
+            padding: 32px; 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .bento-card:hover { 
+            transform: translateY(-5px) scale(1.01); 
+            border-color: rgba(99, 102, 241, 0.2); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+        }
+        .dark .bento-card:hover { 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        }
+
+        /* Hero Card */
+        .hero-card { 
+            grid-column: span 3; 
+            grid-row: span 2; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, var(--card-bg) 100%); 
+        }
+        .avatar-wrapper { 
+            position: relative; 
+            width: 80px; 
+            height: 80px; 
+            margin-bottom: 24px; 
+        }
+        .avatar { 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(135deg, var(--primary), #4f46e5); 
+            border-radius: 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 32px; 
+            font-weight: 800; 
+            color: white; 
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); 
+        }
+        .status-dot { 
+            position: absolute; 
+            bottom: -4px; 
+            right: -4px; 
+            width: 20px; 
+            height: 20px; 
+            background: #10b981; 
+            border: 4px solid var(--bg); 
+            border-radius: 50%; 
+        }
+        .hero-text .label { 
+            font-size: 12px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: var(--primary); 
+            margin-bottom: 12px; 
+            display: block; 
+        }
+        .hero-text h1 { 
+            font-size: clamp(28px, 4vw, 48px); 
+            font-weight: 900; 
+            line-height: 1.1; 
+            margin: 0 0 16px; 
+            letter-spacing: -1px; 
+        }
+        .hero-text p { 
+            font-size: 16px; 
+            color: var(--text-dim); 
+            line-height: 1.6; 
+            max-width: 500px; 
+        }
+        .hero-card .card-footer { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            margin-top: 32px; 
+        }
+        .btn-primary { 
+            background: var(--text-main); 
+            color: var(--bg); 
+            text-decoration: none; 
+            padding: 12px 24px; 
+            border-radius: 999px; 
+            font-weight: 700; 
+            font-size: 14px; 
+            transition: transform 0.2s; 
+        }
+        .btn-primary:hover { transform: scale(1.05); }
+
+        /* Blog Card */
+        .blog-card { 
+            grid-column: span 2; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .blog-card h3 { 
+            font-size: 24px; 
+            margin: 0 0 12px; 
+        }
+        .blog-card .meta { 
+            font-size: 12px; 
+            color: var(--text-dim); 
+            margin-bottom: 16px; 
+        }
+        .blog-card p { 
+            color: var(--text-dim); 
+            line-height: 1.7; 
+            margin-bottom: 16px; 
+        }
+        .blog-card a { 
+            align-self: flex-start; 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: var(--primary); 
+            text-decoration: none; 
+        }
+        .blog-card a:hover { text-decoration: underline; }
+
+        /* Archives Card */
+        .archives-card { grid-column: span 1; }
+        .archives-card ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+        }
+        .archives-card li { 
+            padding: 8px 0; 
+            border-bottom: 1px solid var(--card-border); 
+            font-size: 14px; 
+        }
+        .archives-card li:last-child { border-bottom: none; }
+        .archives-card a { 
+            color: var(--text-main); 
+            text-decoration: none; 
+        }
+        .archives-card a:hover { color: var(--primary); }
+
+        /* About Card */
+        .about-card { grid-column: span 1; }
+        .about-card p { 
+            font-size: 15px; 
+            color: var(--text-dim); 
+            line-height: 1.7; 
+        }
+
+        /* Link Card */
+        .link-card { grid-column: span 2; }
+        .link-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px; 
+        }
+        .link-grid a { 
+            background: var(--card-bg); 
+            border: 1px solid var(--card-border); 
+            text-decoration: none; 
+            color: var(--text-main); 
+            padding: 10px; 
+            text-align: center; 
+            border-radius: 12px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            transition: all 0.2s; 
+        }
+        .link-grid a:hover { 
+            background: var(--primary); 
+            color: white; 
+            border-color: var(--primary); 
+        }
+
         /* Footer */
-        .footer {
-            background: var(--luqing);
-            color: var(--qingqi);
-            padding: 60px 0;
-            text-align: center;
+        .bento-footer { margin-top: 100px; text-align: center; }
+        .footer-cta { 
+            background: linear-gradient(to bottom, var(--card-bg), transparent); 
+            padding: 60px 20px; 
+            border-top: 1px solid var(--card-border); 
+            border-radius: 60px 60px 0 0; 
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
+        .footer-cta h2 { font-size: 32px; margin-bottom: 12px; }
+        .footer-cta p { color: var(--text-dim); margin-bottom: 32px; }
+        .footer-bottom { 
+            padding: 32px; 
+            font-size: 12px; 
+            color: var(--text-dim); 
+            opacity: 0.6; 
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .bento-grid { 
+                grid-template-columns: 1fr; 
+                grid-auto-rows: auto; 
             }
-            
-            .hero-content h1 {
-                font-size: 36px;
+            .hero-card, .blog-card, .archives-card, .about-card, .link-card, .announce-card, .calendar-clock-card { 
+                grid-column: span 1; 
+                grid-row: auto; 
             }
-            
-            .nav {
-                gap: 16px;
+            .hero-text h1 { font-size: 32px; }
+            .link-grid { grid-template-columns: 1fr; }
+            .bento-header { flex-direction: column; gap: 20px; }
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 2px;
+            }
+            .calendar-day {
+                font-size: 10px;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <div class="logo">Gren Life</div>
-            <nav class="nav">
-                <a href="#home">Home</a>
-                <a href="#articles">Articles</a>
-                <a href="#categories">Categories</a>
-                <a href="#archives">Archives</a>
+<body class="bento-home">
+    <div class="bento-container">
+        <!-- Header -->
+        <header class="bento-header">
+            <div class="brand">i8023chu<span>.Blog</span></div>
+            <nav class="bento-nav">
+                <span>Home / Blog / About</span>
             </nav>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Green Life, Green Mind</h1>
-            <p>Welcome to my blog，Explore nature, design, and life through the lens of sustainability.</p>
-            <a href="#articles" class="btn">Browse Articles</a>
-        </div>
-    </section>
-    
-    <!-- Articles List -->
-    <section class="articles">
-        <div class="container">
-            <h2 class="section-title">Latest Articles</h2>
-            <div class="articles-grid">
-                <article class="article-card">
-                    <div class="article-header">
-                        <span class="article-category">Plant Care</span>
-                        <h3 class="article-title">Indoor Plant Care Secrets</h3>
+        </header>
+
+        <!-- Bento Grid Section -->
+        <div class="bento-grid">
+            <!-- Hero Blog Card -->
+            <div class="bento-card hero-card">
+                <div class="card-content">
+                    <div class="avatar-wrapper">
+                        <div class="avatar">Chu</div>
+                        <div class="status-dot"></div>
                     </div>
-                    <div class="article-content">
-                        <p class="article-excerpt">Learn how to properly water and maintain indoor plants for a green workspace...</p>
-                        <div class="article-meta">Jan 15, 2024 • FWKT Zhang San</div>
+                    <div class="hero-text">
+                        <span class="label">Blog</span>
+                        <h1>Welcome to My Blog</h1>
+                        <p>Share technical notes, life essays, and interesting discoveries. Content will be updated continuously, welcome to subscribe.</p>
                     </div>
-                </article>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn-primary">Subscribe to Blog</a>
+                </div>
+            </div>
+
+            <!-- Calendar & Clock Card -->
+            <div class="bento-card calendar-clock-card">
+                <span class="card-label">Current Time</span>
+                <div class="month-year" id="current-month-year">June 2026</div>
+                <div class="time" id="current-time">12:00:00</div>
+                <div class="weekday" id="current-weekday">Friday</div>
                 
-                <article class="article-card">
-                    <div class="article-header">
-                        <span class="article-category">Green Design</span>
-                        <h3 class="article-title">Future of Sustainable Design</h3>
-                    </div>
-                    <div class="article-content">
-                        <p class="article-excerpt">Explore how designers can reduce environmental impact through innovative sustainable solutions...</p>
-                        <div class="article-meta">Apr 10, 2025 • FWKT Zhang San</div>
-                    </div>
-                </article>
-                
-                <article class="article-card">
-                    <div class="article-header">
-                        <span class="article-category">Nature Philosophy</span>
-                        <h3 class="article-title">Learning Design from Nature</h3>
-                    </div>
-                    <div class="article-content">
-                        <p class="article-excerpt">Discover how Biophilic Design principles inspire innovative solutions and creative thinking...</p>
-                        <div class="article-meta">May 5, 2026 • FWKT Zhang San</div>
-                    </div>
-                </article>
+                <!-- Calendar Grid -->
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Will be filled by JS -->
+                </div>
+            </div>
+
+            <!-- Latest Post Card -->
+            <div class="bento-card blog-card">
+                <span class="card-label">Latest Article</span>
+                <h3>Human Ancestors: The Million-Year Evolution of Ancient Humans</h3>
+                <div class="meta">2026-06-26 · Reading time 15 minutes</div>
+                <p>Ancient humans refer to the origins, life, production, historical development, and comprehensive cultural expressions of ancient peoples. For the study of ancient humans, through...</p>
+                <a href="#">Read More →</a>
+            </div>
+
+            <!-- Archives Card -->
+            <div class="bento-card archives-card">
+                <span class="card-label">Archives</span>
+                <ul>
+                    <li><a href="#">June 2026</a></li>
+                    <li><a href="#">May 2026</a></li>
+                    <li><a href="#">April 2026</a></li>
+                    <li><a href="#">December 2025</a></li>
+                </ul>
+            </div>
+
+            <!-- About Card -->
+            <div class="bento-card about-card">
+                <span class="card-label">About Me</span>
+                <p>Proficient in installation and uninstallation of software such as word, excel, ppt, wind, Ai, Fw, Fl, Br, Ae, Pr, Id, Ps, and familiar with startup and shutdown of systems including Windows, Linux, Mac, Android, IOS.</p>
+            </div>
+
+            <!-- Links Card -->
+            <div class="bento-card link-card">
+                <span class="card-label">Quick Links</span>
+                <div class="link-grid">
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                    <a href="#">RSS</a>
+                    <a href="#">Categories</a>
+                    <a href="#">Tags</a>
+                    <a href="#">Search</a>
+                    <a href="#">Guestbook</a>
+                </div>
+            </div>
+
+            <!-- Announcement Card (same width as links) -->
+            <div class="bento-card announce-card">
+                <span class="card-label">Site Announcement</span>
+                <div class="announce-item">
+                    <div class="announce-title">Hello everyone, my blog is now live!</div>
+                    <div class="announce-meta">2025-06-26</div>
+                </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="container search-wrapper">
-            <h2 class="search-title">Search Green Articles</h2>
-            <form class="search-form">
-                <input type="text" class="search-input" placeholder="Enter keywords...">
-                <button type="submit" class="search-button">Search</button>
-            </form>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2024 Gren Life Blog. All rights reserved.</p>
-        </div>
-    </footer>
+
+        <!-- Footer -->
+        <footer class="bento-footer">
+            <div class="footer-cta">
+                <h2>Discuss with Me</h2>
+                <p>If you have any opinions or questions about the articles, feel free to comment below or contact me via email.</p>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 i8023chu Blog - Design By Bento</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Update clock and calendar
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-US', { hour12: false });
+            const monthYear = now.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long'
+            });
+            const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+            
+            document.getElementById('current-time').textContent = time;
+            document.getElementById('current-month-year').textContent = monthYear;
+            document.getElementById('current-weekday').textContent = weekday;
+            
+            updateCalendar(now);
+        }
+        
+        // Update calendar grid
+        function updateCalendar(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth(); // 0-11
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startingDay = firstDay.getDay(); // 0-6 (Sunday-Saturday)
+            const totalDays = lastDay.getDate();
+            
+            const calendarGrid = document.getElementById('calendar-grid');
+            calendarGrid.innerHTML = '';
+            
+            // Weekday titles
+            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            weekdays.forEach(day => {
+                const weekdayEl = document.createElement('div');
+                weekdayEl.className = 'calendar-weekday';
+                weekdayEl.textContent = day;
+                calendarGrid.appendChild(weekdayEl);
+            });
+            
+            // Empty days
+            for (let i = 0; i < startingDay; i++) {
+                const emptyEl = document.createElement('div');
+                emptyEl.className = 'calendar-day empty';
+                calendarGrid.appendChild(emptyEl);
+            }
+            
+            // Dates
+            const today = new Date();
+            for (let day = 1; day <= totalDays; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    dayEl.classList.add('today');
+                }
+                dayEl.textContent = day;
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+        
+        // Initialize
+        const now = new Date();
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>
