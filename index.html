@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-lang">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>i8023chu's Blog</title>
+    <title i18n="title">i8023chu's Blog</title>
     <style>
         /* Bento Home Theme - Responsive Mode */
         .bento-home { 
@@ -348,6 +348,36 @@
             opacity: 0.6; 
         }
 
+        /* Language Switcher */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 999px;
+            border: 1px solid var(--card-border);
+        }
+        .lang-switcher button {
+            background: none;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lang-switcher button.active {
+            background: var(--primary);
+            color: white;
+        }
+        .lang-switcher button:hover:not(.active) {
+            opacity: 0.7;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 900px) {
             .bento-grid { 
@@ -373,12 +403,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="bento-home">
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button id="lang-en" class="active" data-lang="en">EN</button>
+        <button id="lang-zh" data-lang="zh">中文</button>
+    </div>
+
     <div class="bento-container">
         <!-- Header -->
         <header class="bento-header">
             <div class="brand">i8023chu<span>.Blog</span></div>
             <nav class="bento-nav">
-                <span>Home / Blog / About</span>
+                <span i18n="nav.home">Home</span> / <span i18n="nav.blog">Blog</span> / <span i18n="nav.about">About</span>
             </nav>
         </header>
 
@@ -392,19 +428,19 @@
                         <div class="status-dot"></div>
                     </div>
                     <div class="hero-text">
-                        <span class="label">Blog</span>
-                        <h1>Welcome to My Blog</h1>
-                        <p>Share technical notes, life essays, and interesting discoveries. Content will be updated continuously, welcome to subscribe.</p>
+                        <span class="label" i18n="hero.label">Blog</span>
+                        <h1 i18n="hero.title">Welcome to My Blog</h1>
+                        <p i18n="hero.description">Share technical notes, life essays, and interesting discoveries. Content will be updated continuously, welcome to subscribe.</p>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn-primary">Subscribe to Blog</a>
+                    <a href="#" class="btn-primary" i18n="hero.subscribe">Subscribe to Blog</a>
                 </div>
             </div>
 
             <!-- Calendar & Clock Card -->
             <div class="bento-card calendar-clock-card">
-                <span class="card-label">Current Time</span>
+                <span class="card-label" i18n="calendar.title">Current Time</span>
                 <div class="month-year" id="current-month-year">June 2026</div>
                 <div class="time" id="current-time">12:00:00</div>
                 <div class="weekday" id="current-weekday">Friday</div>
@@ -417,48 +453,48 @@
 
             <!-- Latest Post Card -->
             <div class="bento-card blog-card">
-                <span class="card-label">Latest Article</span>
-                <h3>Human Ancestors: The Million-Year Evolution of Ancient Humans</h3>
-                <div class="meta">2026-06-26 · Reading time 15 minutes</div>
-                <p>Ancient humans refer to the origins, life, production, historical development, and comprehensive cultural expressions of ancient peoples. For the study of ancient humans, through...</p>
-                <a href="#">Read More →</a>
+                <span class="card-label" i18n="blog.label">Latest Article</span>
+                <h3 i18n="blog.title">Human Ancestors: The Million-Year Evolution of Ancient Humans</h3>
+                <div class="meta" i18n="blog.date">2026-06-26 · Reading time 15 minutes</div>
+                <p i18n="blog.description">Ancient humans refer to the origins, life, production, historical development, and comprehensive cultural expressions of ancient peoples. For the study of ancient humans, through...</p>
+                <a href="#" i18n="blog.readMore">Read More →</a>
             </div>
 
             <!-- Archives Card -->
             <div class="bento-card archives-card">
-                <span class="card-label">Archives</span>
+                <span class="card-label" i18n="archives.label">Archives</span>
                 <ul>
-                    <li><a href="#">June 2026</a></li>
-                    <li><a href="#">May 2026</a></li>
-                    <li><a href="#">April 2026</a></li>
-                    <li><a href="#">December 2025</a></li>
+                    <li><a href="#" i18n="archives.june2026">June 2026</a></li>
+                    <li><a href="#" i18n="archives.may2026">May 2026</a></li>
+                    <li><a href="#" i18n="archives.april2026">April 2026</a></li>
+                    <li><a href="#" i18n="archives.dec2025">December 2025</a></li>
                 </ul>
             </div>
 
             <!-- About Card -->
             <div class="bento-card about-card">
-                <span class="card-label">About Me</span>
-                <p>Proficient in installation and uninstallation of software such as word, excel, ppt, wind, Ai, Fw, Fl, Br, Ae, Pr, Id, Ps, and familiar with startup and shutdown of systems including Windows, Linux, Mac, Android, IOS.</p>
+                <span class="card-label" i18n="about.label">About Me</span>
+                <p i18n="about.description">Proficient in installation and uninstallation of software such as word, excel, ppt, wind, Ai, Fw, Fl, Br, Ae, Pr, Id, Ps, and familiar with startup and shutdown of systems including Windows, Linux, Mac, Android, IOS.</p>
             </div>
 
             <!-- Links Card -->
             <div class="bento-card link-card">
-                <span class="card-label">Quick Links</span>
+                <span class="card-label" i18n="links.label">Quick Links</span>
                 <div class="link-grid">
-                    <a href="https://github.com" target="_blank">GitHub</a>
-                    <a href="#">RSS</a>
-                    <a href="#">Categories</a>
-                    <a href="#">Tags</a>
-                    <a href="#">Search</a>
-                    <a href="#">Guestbook</a>
+                    <a href="https://github.com" target="_blank" i18n="links.github">GitHub</a>
+                    <a href="#" i18n="links.rss">RSS</a>
+                    <a href="#" i18n="links.categories">Categories</a>
+                    <a href="#" i18n="links.tags">Tags</a>
+                    <a href="#" i18n="links.search">Search</a>
+                    <a href="#" i18n="links.guestbook">Guestbook</a>
                 </div>
             </div>
 
             <!-- Announcement Card (same width as links) -->
             <div class="bento-card announce-card">
-                <span class="card-label">Site Announcement</span>
+                <span class="card-label" i18n="announce.label">Site Announcement</span>
                 <div class="announce-item">
-                    <div class="announce-title">Hello everyone, my blog is now live!</div>
+                    <div class="announce-title" i18n="announce.welcome">Hello everyone, my blog is now live!</div>
                     <div class="announce-meta">2025-06-26</div>
                 </div>
             </div>
@@ -467,25 +503,173 @@
         <!-- Footer -->
         <footer class="bento-footer">
             <div class="footer-cta">
-                <h2>Discuss with Me</h2>
-                <p>If you have any opinions or questions about the articles, feel free to comment below or contact me via email.</p>
+                <h2 i18n="footer.title">Discuss with Me</h2>
+                <p i18n="footer.description">If you have any opinions or questions about the articles, feel free to comment below or contact me via email.</p>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 i8023chu Blog - Design By Bento</p>
+                <p i18n="footer.copyright">© 2025 i8023chu Blog - Design By Bento</p>
             </div>
         </footer>
     </div>
 
     <script>
+        // Translation strings
+        const translations = {
+            en: {
+                title: "i8023chu's Blog",
+                nav: {
+                    home: "Home",
+                    blog: "Blog",
+                    about: "About"
+                },
+                hero: {
+                    label: "Blog",
+                    title: "Welcome to My Blog",
+                    description: "Share technical notes, life essays, and interesting discoveries. Content will be updated continuously, welcome to subscribe.",
+                    subscribe: "Subscribe to Blog"
+                },
+                calendar: {
+                    title: "Current Time"
+                },
+                blog: {
+                    label: "Latest Article",
+                    title: "Human Ancestors: The Million-Year Evolution of Ancient Humans",
+                    date: "2026-06-26 · Reading time 15 minutes",
+                    description: "Ancient humans refer to the origins, life, production, historical development, and comprehensive cultural expressions of ancient peoples. For the study of ancient humans, through...",
+                    readMore: "Read More →"
+                },
+                archives: {
+                    label: "Archives",
+                    june2026: "June 2026",
+                    may2026: "May 2026",
+                    april2026: "April 2026",
+                    dec2025: "December 2025"
+                },
+                about: {
+                    label: "About Me",
+                    description: "Proficient in installation and uninstallation of software such as word, excel, ppt, wind, Ai, Fw, Fl, Br, Ae, Pr, Id, Ps, and familiar with startup and shutdown of systems including Windows, Linux, Mac, Android, IOS."
+                },
+                links: {
+                    label: "Quick Links",
+                    github: "GitHub",
+                    rss: "RSS",
+                    categories: "Categories",
+                    tags: "Tags",
+                    search: "Search",
+                    guestbook: "Guestbook"
+                },
+                announce: {
+                    label: "Site Announcement",
+                    welcome: "Hello everyone, my blog is now live!"
+                },
+                footer: {
+                    title: "Discuss with Me",
+                    description: "If you have any opinions or questions about the articles, feel free to comment below or contact me via email.",
+                    copyright: "© 2025 i8023chu Blog - Design By Bento"
+                }
+            },
+            zh: {
+                title: "i8023chu的博客",
+                nav: {
+                    home: "首页",
+                    blog: "博客",
+                    about: "关于"
+                },
+                hero: {
+                    label: "博客",
+                    title: "欢迎来到我的博客",
+                    description: "在这里分享技术笔记、生活随笔和有趣的发现。内容会持续更新，欢迎订阅。",
+                    subscribe: "订阅博客"
+                },
+                calendar: {
+                    title: "当前时间"
+                },
+                blog: {
+                    label: "最新文章",
+                    title: "人类祖先：古人类的百万年进化进程",
+                    date: "2026-06-26 · 阅读时长 15 分钟",
+                    description: "古人类指远古人的起源，生活，生产，历史发展及其文化综合表现状况。为了研究古人类，通过...",
+                    readMore: "阅读全文 →"
+                },
+                archives: {
+                    label: "归档",
+                    june2026: "2026年6月",
+                    may2026: "2026年5月",
+                    april2026: "2026年4月",
+                    dec2025: "2025年12月"
+                },
+                about: {
+                    label: "关于我",
+                    description: "擅长word、excel、ppt、wind、Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，熟悉Windows、Linux、Mac、Android、IOS等系统的开关机。"
+                },
+                links: {
+                    label: "常用链接",
+                    github: "GitHub",
+                    rss: "RSS",
+                    categories: "分类",
+                    tags: "标签",
+                    search: "搜索",
+                    guestbook: "留言板"
+                },
+                announce: {
+                    label: "站点公告",
+                    welcome: "大家好，我的博客上线啦！"
+                },
+                footer: {
+                    title: "与我交流",
+                    description: "如果你对文章有任何看法或问题，欢迎在下方评论或通过邮件联系我。",
+                    copyright: "© 2025 i8023chu博客 - 设计由Bento"
+                }
+            }
+        };
+
+        let currentLang = 'en';
+
+        // Update text content based on language
+        function updateLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('html-lang').setAttribute('lang', lang);
+            document.title = translations[lang].title;
+            
+            // Update active button
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+            
+            // Update all translatable elements
+            document.querySelectorAll('[i18n]').forEach(el => {
+                const key = el.getAttribute('i18n');
+                const value = getTranslation(translations[lang], key);
+                if (value !== undefined) {
+                    el.textContent = value;
+                }
+            });
+            
+            // Update weekday and month names
+            weekdays = lang === 'en' 
+                ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                : ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            monthNames = lang === 'en'
+                ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                : ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            
+            // Re-render calendar with new language
+            updateCalendar(new Date());
+        }
+
+        // Get nested translation value
+        function getTranslation(obj, key) {
+            return key.split('.').reduce((o, k) => o?.[k], obj);
+        }
+
         // Update clock and calendar
+        let weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        
         function updateClock() {
             const now = new Date();
             const time = now.toLocaleTimeString('en-US', { hour12: false });
-            const monthYear = now.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long'
-            });
-            const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+            const monthYear = now.getFullYear() + ' ' + monthNames[now.getMonth()];
+            const weekday = weekdays[now.getDay()];
             
             document.getElementById('current-time').textContent = time;
             document.getElementById('current-month-year').textContent = monthYear;
@@ -507,7 +691,6 @@
             calendarGrid.innerHTML = '';
             
             // Weekday titles
-            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             weekdays.forEach(day => {
                 const weekdayEl = document.createElement('div');
                 weekdayEl.className = 'calendar-weekday';
@@ -535,11 +718,14 @@
             }
         }
         
-        // Initialize
-        const now = new Date();
+        // Language switcher
+        document.getElementById('lang-en').addEventListener('click', () => updateLanguage('en'));
+        document.getElementById('lang-zh').addEventListener('click', () => updateLanguage('zh'));
+        
+        // Initialize with English (default)
+        updateLanguage('en');
         updateClock();
         setInterval(updateClock, 1000);
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>
